@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>EA Energy Hit to Real Disposable Income</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,sans-serif;background:#fff;color:#333}#root{max-width:760px;margin:0 auto;padding:16px}</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const e=React.createElement,{useState,useMemo}=React;
+const ttfH=[{q:"2018-Q1",v:20},{q:"2018-Q2",v:23},{q:"2018-Q3",v:27},{q:"2018-Q4",v:24},{q:"2019-Q1",v:18},{q:"2019-Q2",v:14},{q:"2019-Q3",v:11},{q:"2019-Q4",v:13},{q:"2020-Q1",v:9},{q:"2020-Q2",v:5},{q:"2020-Q3",v:8},{q:"2020-Q4",v:14},{q:"2021-Q1",v:19},{q:"2021-Q2",v:26},{q:"2021-Q3",v:48},{q:"2021-Q4",v:90},{q:"2022-Q1",v:105},{q:"2022-Q2",v:100},{q:"2022-Q3",v:200},{q:"2022-Q4",v:120},{q:"2023-Q1",v:55},{q:"2023-Q2",v:34},{q:"2023-Q3",v:34},{q:"2023-Q4",v:42},{q:"2024-Q1",v:28},{q:"2024-Q2",v:32},{q:"2024-Q3",v:36},{q:"2024-Q4",v:44},{q:"2025-Q1",v:47},{q:"2025-Q2",v:36},{q:"2025-Q3",v:38},{q:"2025-Q4",v:42},{q:"2026-Q1",v:45}];
+const eaGM=[{q:"2018-Q1",p:1.36,s:4.2},{q:"2018-Q2",p:1.43,s:4.2},{q:"2018-Q3",p:1.45,s:4.3},{q:"2018-Q4",p:1.39,s:4.2},{q:"2019-Q1",p:1.33,s:4.1},{q:"2019-Q2",p:1.42,s:4.1},{q:"2019-Q3",p:1.39,s:4.1},{q:"2019-Q4",p:1.38,s:4.1},{q:"2020-Q1",p:1.28,s:3.7},{q:"2020-Q2",p:1.10,s:3.2},{q:"2020-Q3",p:1.22,s:3.4},{q:"2020-Q4",p:1.20,s:3.4},{q:"2021-Q1",p:1.32,s:3.5},{q:"2021-Q2",p:1.42,s:3.7},{q:"2021-Q3",p:1.47,s:3.8},{q:"2021-Q4",p:1.55,s:3.9},{q:"2022-Q1",p:1.75,s:4.2},{q:"2022-Q2",p:1.90,s:4.6},{q:"2022-Q3",p:1.72,s:4.7},{q:"2022-Q4",p:1.63,s:4.4},{q:"2023-Q1",p:1.63,s:4.3},{q:"2023-Q2",p:1.67,s:4.2},{q:"2023-Q3",p:1.72,s:4.2},{q:"2023-Q4",p:1.63,s:4.0},{q:"2024-Q1",p:1.62,s:3.9},{q:"2024-Q2",p:1.67,s:3.9},{q:"2024-Q3",p:1.61,s:3.9},{q:"2024-Q4",p:1.55,s:3.8},{q:"2025-Q1",p:1.55,s:3.7},{q:"2025-Q2",p:1.57,s:3.7},{q:"2025-Q3",p:1.56,s:3.7},{q:"2025-Q4",p:1.48,s:3.6},{q:"2026-Q1",p:1.72,s:3.7}];
+const crudeH=[{q:"1977-Q4",v:13},{q:"1978-Q1",v:13},{q:"1978-Q2",v:13},{q:"1978-Q3",v:13},{q:"1978-Q4",v:13},{q:"1979-Q1",v:15},{q:"1979-Q2",v:20},{q:"1979-Q3",v:24},{q:"1979-Q4",v:30},{q:"1980-Q1",v:34},{q:"1980-Q2",v:36},{q:"1980-Q3",v:36},{q:"1980-Q4",v:37},{q:"1981-Q1",v:38},{q:"1981-Q2",v:36},{q:"1981-Q3",v:35},{q:"1981-Q4",v:34}];
+const eaG80=[{q:"1977-Q4",p:.38,s:4.6},{q:"1978-Q1",p:.39,s:4.7},{q:"1978-Q2",p:.40,s:4.7},{q:"1978-Q3",p:.41,s:4.8},{q:"1978-Q4",p:.42,s:4.8},{q:"1979-Q1",p:.44,s:4.9},{q:"1979-Q2",p:.48,s:5.0},{q:"1979-Q3",p:.53,s:5.1},{q:"1979-Q4",p:.56,s:5.2},{q:"1980-Q1",p:.60,s:5.3},{q:"1980-Q2",p:.63,s:5.4},{q:"1980-Q3",p:.64,s:5.4},{q:"1980-Q4",p:.65,s:5.4},{q:"1981-Q1",p:.68,s:5.3},{q:"1981-Q2",p:.69,s:5.2},{q:"1981-Q3",p:.68,s:5.1},{q:"1981-Q4",p:.66,s:5.0}];
+
+function cF(data,sq){const d=sq?[...data,...sq]:[...data],r=[];for(let i=1;i<d.length;i++){const p=(d[i].p-d[i-1].p)/d[i-1].p;r.push({q:d[i].q,c:(d[i-1].s/100)*p*100})}for(let i=0;i<r.length;i++){if(i<3){r[i].f4=null;continue}r[i].f4=r[i-3].c+r[i-2].c+r[i-1].c+r[i].c}return r}
+function cW(hist,sq,sh,pt,ld){const d=sq?[...hist,...sq]:[...hist],r=[];for(let i=1;i<d.length;i++)r.push({q:d[i].q,chg:((d[i].v-d[i-1].v)/d[i-1].v)*100});for(let i=0;i<r.length;i++){let cc=0;for(let j=0;j<ld.length;j++)if(i>=j)cc+=pt*ld[j]*r[i-j].chg;r[i].c=(sh/100)*cc}for(let i=0;i<r.length;i++){if(i<3){r[i].f4=null;continue}r[i].f4=r[i-3].c+r[i-2].c+r[i-1].c+r[i].c}return r}
+
+const presets={base:{l:"Baseline",t:[72,65,55],g:[1.90,1.85,1.80]},adverse:{l:"Adverse",t:[89,80,70],g:[2.05,2.00,1.90]},severe:{l:"Severe",t:[110,100,90],g:[2.20,2.15,2.05]},tail:{l:"Tail risk",t:[140,130,110],g:[2.40,2.30,2.20]}};
+
+function App(){
+  const[era,sE]=useState("modern");
+  const[t2,sT2]=useState(72),[t3,sT3]=useState(65),[t4,sT4]=useState(55);
+  const[g2,sG2]=useState(1.90),[g3,sG3]=useState(1.85),[g4,sG4]=useState(1.80);
+  const[gSh,sGSh]=useState(2.0),[gPT,sGPT]=useState(.40);
+  const[eSh,sESh]=useState(2.7),[ePT,sEPT]=useState(.25),[mo,sMO]=useState(.60);
+  const gl=[.20,.35,.30,.15],el=[.10,.25,.35,.30],hl=[.25,.35,.25,.15];
+  const sT=[{q:"2026-Q2",v:t2},{q:"2026-Q3",v:t3},{q:"2026-Q4",v:t4}];
+  const sG=[{q:"2026-Q2",p:g2,s:3.8},{q:"2026-Q3",p:g3,s:3.8},{q:"2026-Q4",p:g4,s:3.8}];
+  const mF=useMemo(()=>cF(eaGM,sG),[g2,g3,g4]);
+  const mG=useMemo(()=>cW(ttfH,sT,gSh,gPT,gl),[t2,t3,t4,gSh,gPT]);
+  const mE=useMemo(()=>cW(ttfH,sT,eSh,ePT*mo,el),[t2,t3,t4,eSh,ePT,mo]);
+  const hF=useMemo(()=>cF(eaG80,null),[]);
+  const hO=useMemo(()=>cW(crudeH,null,4.0,.55,hl),[]);
+  const hE=useMemo(()=>cW(crudeH,null,2.8,.20*.45,el),[]);
+  const sq=era==="modern"?"2019":"1979";
+  const fA=(era==="modern"?mF:hF).filter(d=>d.f4!==null&&d.q>=sq);
+  const gA=(era==="modern"?mG:hO).filter(d=>d.f4!==null&&d.q>=sq);
+  const eA=(era==="modern"?mE:hE).filter(d=>d.f4!==null&&d.q>=sq);
+  const N=Math.min(fA.length,gA.length,eA.length);
+  const fS=fA.slice(-N),gS=gA.slice(-N),eS=eA.slice(-N);
+  const cb=fS.map((d,i)=>({q:d.q,fuel:-(d.f4||0),hh:-(gS[i]?.f4||0),elec:-(eS[i]?.f4||0),total:-(d.f4||0)-(gS[i]?.f4||0)-(eS[i]?.f4||0)}));
+  const aV=cb.flatMap(d=>[d.total,0]);
+  const yMn=Math.floor((Math.min(...aV)-.5)*4)/4,yMx=Math.ceil((Math.max(...aV)+.5)*4)/4;
+  const W=700,H=330,P={t:28,r:16,b:58,l:52};
+  const cw=W-P.l-P.r,ch=H-P.t-P.b;
+  const xS=i=>P.l+(i/(N-1))*cw,yS=v=>P.t+ch-((v-yMn)/(yMx-yMn))*ch,y0=yS(0);
+  const nT=7,tks=Array.from({length:nT+1},(_,i)=>yMn+(i/nT)*(yMx-yMn));
+  const lb=Math.max(1,Math.floor(N/10)),bw=Math.max(Math.min(cw/N-2,18),4);
+  const pR=era==="modern"?["2022","2023"]:["1980","1981"];
+  const pC=cb.filter(d=>d.q>=pR[0]&&d.q<pR[1]);
+  const pk=pC.length?pC.reduce((a,b)=>b.total<a.total?b:a):null;
+  const pI=pk?cb.findIndex(d=>d.q===pk.q):-1;
+  const la=cb[cb.length-1];
+  const C={fuel:"#e67e22",hh:"#8e44ad",elec:"#2980b9",total:"#c0392b"};
+  const hhL=era==="modern"?"Gas (TTF→consumer)":"Heating oil (crude→consumer)";
+  const elL=era==="modern"?"Electricity (TTF→merit order)":"Electricity (oil-fired gen.)";
+  const mkC=(f,g,ee,s)=>{const fa=f.filter(d=>d.f4!==null&&d.q>=s),ga=g.filter(d=>d.f4!==null&&d.q>=s),ea=ee.filter(d=>d.f4!==null&&d.q>=s);const n=Math.min(fa.length,ga.length,ea.length);return fa.slice(-n).map((d,i)=>({q:d.q,fuel:-(d.f4||0),hh:-(ga[i]?.f4||0),elec:-(ea[i]?.f4||0),total:-(d.f4||0)-(ga[i]?.f4||0)-(ea[i]?.f4||0)}))};
+  const mCb=mkC(mF,mG,mE,"2019"),hCb=mkC(hF,hO,hE,"1979");
+  const mn=(a,k)=>a.length?a.reduce((x,b)=>b[k]<x?b[k]:x,0):0;
+  const m22=mCb.filter(d=>d.q>="2022"&&d.q<"2023"),h80=hCb.filter(d=>d.q>="1980"&&d.q<"1981");
+  const mL=mCb[mCb.length-1]||{fuel:0,hh:0,elec:0,total:0};
+  function aP(k){const p=presets[k];sT2(p.t[0]);sT3(p.t[1]);sT4(p.t[2]);sG2(p.g[0]);sG3(p.g[1]);sG4(p.g[2])}
+
+  const sl=(v,fn,mn2,mx,st,w)=>e("div",{style:{display:"flex",alignItems:"center",gap:4}},e("input",{type:"range",min:mn2,max:mx,step:st,value:v,onChange:x=>fn(+x.target.value),style:{flex:1}}),e("span",{style:{fontSize:13,fontWeight:700,minWidth:w||30}},typeof v==="number"&&v%1===0?"€"+v:"€"+v.toFixed(2)));
+
+  return e("div",{style:{fontFamily:"system-ui,sans-serif",maxWidth:740,margin:"0 auto",padding:16}},
+    e("h2",{style:{fontSize:16,margin:"0 0 2px"}},"Euro Area: Energy Price Hit to Real Disposable Income"),
+    e("p",{style:{fontSize:11,color:"#666",margin:"0 0 8px"}},"4-quarter moving sum, sign reversed. Three channels: motor fuels, household heating, electricity. Multi-quarter scenario path."),
+    e("div",{style:{display:"flex",gap:8,marginBottom:10}},
+      [["modern","2019–2026"],["1980","1979–1981"]].map(([k,l])=>e("button",{key:k,onClick:()=>sE(k),style:{padding:"6px 16px",borderRadius:5,border:"1px solid #ccc",fontSize:13,cursor:"pointer",background:era===k?"#2c3e50":"#fff",color:era===k?"#fff":"#333",fontWeight:era===k?700:400}},l))
+    ),
+    // Chart
+    e("svg",{viewBox:`0 0 ${W} ${H}`,style:{width:"100%",background:"#fafafa",borderRadius:6}},
+      tks.map((t,i)=>e("g",{key:i},e("line",{x1:P.l,x2:W-P.r,y1:yS(t),y2:yS(t),stroke:"#e8e8e8",strokeWidth:.5}),e("text",{x:P.l-5,y:yS(t)+3.5,textAnchor:"end",fontSize:9.5,fill:"#777"},t.toFixed(1)+"%"))),
+      e("line",{x1:P.l,x2:W-P.r,y1:y0,y2:y0,stroke:"#555",strokeWidth:.8}),
+      cb.map((d,i)=>{const bx=xS(i)-bw/2,layers=[{v:d.elec,c:C.elec},{v:d.hh,c:C.hh},{v:d.fuel,c:C.fuel}];let cN=0,cP=0;const rs=[];layers.forEach((l,j)=>{if(Math.abs(l.v)<.001)return;if(l.v<0){const tp=cN+l.v;rs.push(e("rect",{key:j,x:bx,y:yS(cN),width:bw,height:Math.max(Math.abs(yS(tp)-yS(cN)),.5),fill:l.c,opacity:.75,rx:1}));cN+=l.v}else{const tp=cP+l.v;rs.push(e("rect",{key:j,x:bx,y:yS(tp),width:bw,height:Math.max(Math.abs(yS(cP)-yS(tp)),.5),fill:l.c,opacity:.75,rx:1}));cP+=l.v}});return e("g",{key:i},...rs,i%lb===0?e("text",{x:xS(i),y:H-P.b+14,textAnchor:"end",fontSize:9,fill:"#666",transform:`rotate(-50 ${xS(i)} ${H-P.b+14})`},d.q):null)}),
+      e("path",{d:cb.map((d,i)=>`${i===0?"M":"L"}${xS(i).toFixed(1)},${yS(d.total).toFixed(1)}`).join(" "),fill:"none",stroke:C.total,strokeWidth:2.2}),
+      [{c:C.fuel,l:"Motor fuels"},{c:C.hh,l:hhL},{c:C.elec,l:elL}].map((it,j)=>e("g",{key:j},e("rect",{x:P.l+8+j*185,y:P.t+3,width:10,height:10,fill:it.c,opacity:.75,rx:2}),e("text",{x:P.l+22+j*185,y:P.t+12,fontSize:9.5,fill:"#555"},it.l))),
+      pk&&pI>=0?e("g",null,e("line",{x1:xS(pI),x2:xS(pI),y1:yS(pk.total),y2:yS(pk.total)-22,stroke:"#900",strokeWidth:.7}),e("text",{x:xS(pI)+4,y:yS(pk.total)-26,textAnchor:"start",fontSize:10,fill:"#900",fontWeight:"bold"},(era==="modern"?"2022":"1980")+": "+pk.total.toFixed(2)+"%")):null,
+      era==="modern"?e("g",null,e("line",{x1:xS(N-1),x2:xS(N-1),y1:yS(la.total),y2:yS(la.total)+(la.total>(pk?.total||0)?18:-22),stroke:"#b8860b",strokeWidth:.7}),e("text",{x:Math.min(xS(N-1),W-P.r-40),y:yS(la.total)+(la.total>(pk?.total||0)?30:-26),textAnchor:"middle",fontSize:10,fill:"#b8860b",fontWeight:"bold"},"Q4: "+la.total.toFixed(2)+"%")):null
+    ),
+    // Modern controls
+    era==="modern"?e("div",null,
+      e("div",{style:{marginTop:10,display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}},
+        e("span",{style:{fontSize:12,fontWeight:600,color:"#555"}},"Scenarios:"),
+        Object.entries(presets).map(([k,p])=>e("button",{key:k,onClick:()=>aP(k),style:{padding:"4px 10px",fontSize:11,borderRadius:4,cursor:"pointer",border:"1px solid #ccc",background:"#fff",color:"#333"}},p.l,e("span",{style:{fontSize:9,color:"#888",marginLeft:4}},"TTF €"+p.t[0])))
+      ),
+      e("div",{style:{marginTop:8,padding:10,background:"#f8f9fa",borderRadius:6}},
+        e("div",{style:{fontSize:12,fontWeight:600,color:"#555",marginBottom:6}},"Scenario path (Q2 → Q3 → Q4 2026)"),
+        e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}},
+          [{l:"Q2",tv:t2,tf:sT2,gv:g2,gf:sG2},{l:"Q3",tv:t3,tf:sT3,gv:g3,gf:sG3},{l:"Q4",tv:t4,tf:sT4,gv:g4,gf:sG4}].map(({l:ql,tv,tf,gv,gf})=>e("div",{key:ql,style:{padding:6,background:"#fff",borderRadius:4,border:"1px solid #e0e0e0"}},
+            e("div",{style:{fontSize:11,fontWeight:600,marginBottom:4}},ql),
+            e("div",{style:{fontSize:10,color:C.hh}},"TTF €/MWh"),sl(tv,tf,25,200,1,30),
+            e("div",{style:{fontSize:10,color:C.fuel,marginTop:4}},"Gasoline €/L"),sl(gv,gf,1.3,2.8,.01,40)
+          ))
+        ),
+        e("div",{style:{marginTop:8,display:"flex",alignItems:"center",justifyContent:"center",gap:16}},
+          e("div",{style:{fontSize:18,fontWeight:700,color:la.total<0?C.total:"#27ae60"}},"Q4 2026 total hit: "+la.total.toFixed(2)+"%"),
+          e("div",{style:{fontSize:11,color:"#888"}},"(fuel "+la.fuel.toFixed(2)+" · gas "+la.hh.toFixed(2)+" · elec "+la.elec.toFixed(2)+")")
+        )
+      ),
+      // Merit order
+      e("div",{style:{marginTop:8,padding:10,background:"#e8f4fd",borderRadius:6,border:"1px solid #bee5f7"}},
+        e("div",{style:{display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"}},
+          e("div",{style:{flex:1,minWidth:200}},
+            e("div",{style:{fontSize:12,fontWeight:600,color:"#1a5276"}},"Merit-order coefficient"),
+            e("div",{style:{fontSize:10.5,color:"#555",marginTop:1}},"TTF → wholesale electricity. DE≈65–75% | EA≈60% | FR≈40–50%")),
+          e("div",{style:{display:"flex",alignItems:"center",gap:6,minWidth:180}},
+            e("input",{type:"range",min:.3,max:1,step:.05,value:mo,onChange:x=>sMO(+x.target.value),style:{flex:1}}),
+            e("span",{style:{fontSize:16,fontWeight:700,minWidth:40,color:"#1a5276"}},(mo*100).toFixed(0)+"%")),
+          e("div",{style:{display:"flex",gap:6}},
+            [{l:"DE",v:.70},{l:"EA",v:.60},{l:"FR",v:.45}].map(p=>e("button",{key:p.l,onClick:()=>sMO(p.v),style:{padding:"3px 8px",fontSize:10,borderRadius:3,cursor:"pointer",border:Math.abs(mo-p.v)<.03?"2px solid #1a5276":"1px solid #aaa",background:Math.abs(mo-p.v)<.03?"#d4e6f1":"#fff",color:"#333",fontWeight:Math.abs(mo-p.v)<.03?700:400}},p.l+" ("+(p.v*100)+"%)")))
+        )
+      ),
+      // Advanced
+      e("details",{style:{marginTop:8}},
+        e("summary",{style:{fontSize:11,fontWeight:600,color:"#777",cursor:"pointer"}},"Advanced parameters"),
+        e("div",{style:{padding:8,background:"#f8f9fa",borderRadius:6,marginTop:4,display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,fontSize:11}},
+          e("div",null,"Gas HICP share: ",e("strong",null,gSh+"%")," ",e("span",{style:{color:"#aaa"}},"EA≈2.0|DE≈2.5"),e("input",{type:"range",min:1,max:3.5,step:.1,value:gSh,onChange:x=>sGSh(+x.target.value),style:{width:"100%"}})),
+          e("div",null,"TTF→consumer gas PT: ",e("strong",null,(gPT*100).toFixed(0)+"%"),e("input",{type:"range",min:.15,max:.65,step:.05,value:gPT,onChange:x=>sGPT(+x.target.value),style:{width:"100%"}})),
+          e("div",null,"Elec HICP share: ",e("strong",null,eSh+"%"),e("input",{type:"range",min:1.5,max:4,step:.1,value:eSh,onChange:x=>sESh(+x.target.value),style:{width:"100%"}})),
+          e("div",null,"TTF→consumer elec PT: ",e("strong",null,(ePT*100).toFixed(0)+"%"),e("input",{type:"range",min:.1,max:.5,step:.05,value:ePT,onChange:x=>sEPT(+x.target.value),style:{width:"100%"}}))
+        )
+      )
+    ):e("div",{style:{marginTop:10,padding:10,background:"#f8f9fa",borderRadius:6,fontSize:12,color:"#555",lineHeight:1.6}},
+      e("strong",null,"1979–81 model:")," Crude oil replaces TTF. Heating oil (~4% share, ~55% pass-through) replaces gas. Electricity ~45% oil-fired. Motor fuel share ~5% (vs ~3.7% today)."),
+    // Cross-era table
+    e("div",{style:{marginTop:14}},
+      e("div",{style:{fontSize:13,fontWeight:700,marginBottom:4}},"Cross-era comparison: peak 4Q hit to real disposable income"),
+      e("table",{style:{width:"100%",borderCollapse:"collapse",fontSize:12}},
+        e("thead",null,e("tr",{style:{borderBottom:"2px solid #bbb"}},
+          e("th",{style:{textAlign:"left",padding:"4px 6px"}}),
+          e("th",{style:{textAlign:"right",padding:"4px 6px",color:C.fuel,fontSize:11}},"Motor fuels"),
+          e("th",{style:{textAlign:"right",padding:"4px 6px",color:C.hh,fontSize:11}},"Heating"),
+          e("th",{style:{textAlign:"right",padding:"4px 6px",color:C.elec,fontSize:11}},"Electricity"),
+          e("th",{style:{textAlign:"right",padding:"4px 6px",color:C.total,fontWeight:700}},"Total"))),
+        e("tbody",null,
+          e("tr",{style:{borderBottom:"1px solid #eee",background:era==="1980"?"#f5f5dc":""}},
+            e("td",{style:{padding:"4px 6px",fontWeight:600}},"1979–80"),
+            ["fuel","hh","elec","total"].map(k=>e("td",{key:k,style:{textAlign:"right",padding:"4px 6px",fontWeight:k==="total"?700:400,color:k==="total"?C.total:undefined}},mn(h80,k).toFixed(2)+"%"))),
+          e("tr",{style:{borderBottom:"1px solid #eee"}},
+            e("td",{style:{padding:"4px 6px",fontWeight:600}},"2022"),
+            ["fuel","hh","elec","total"].map(k=>e("td",{key:k,style:{textAlign:"right",padding:"4px 6px",fontWeight:k==="total"?700:400,color:k==="total"?C.total:undefined}},mn(m22,k).toFixed(2)+"%"))),
+          e("tr",{style:{background:"#fff3e0"}},
+            e("td",{style:{padding:"4px 6px",fontWeight:600}},"2026 Q4 scen."),
+            e("td",{style:{textAlign:"right",padding:"4px 6px"}},mL.fuel.toFixed(2)+"%"),
+            e("td",{style:{textAlign:"right",padding:"4px 6px"}},mL.hh.toFixed(2)+"%"),
+            e("td",{style:{textAlign:"right",padding:"4px 6px"}},mL.elec.toFixed(2)+"%"),
+            e("td",{style:{textAlign:"right",padding:"4px 6px",fontWeight:700,color:mL.total<0?C.total:"#27ae60"}},mL.total.toFixed(2)+"%"))
+        )
+      ),
+      e("div",{style:{fontSize:10.5,color:"#888",marginTop:3}},"Scenarios: baseline TTF Q2=€72 | adverse=€89 | severe=€110 | tail=€140")
+    ),
+    e("div",{style:{marginTop:10,fontSize:10,color:"#aaa",lineHeight:1.5}},
+      e("strong",null,"Sources: "),"TTF (ICE). Gasoline (EU Oil Bulletin). HICP weights (Eurostat). 1979–81: crude (BP Stat Review), gasoline (Destatis, DM→EUR). Pass-through: ECB WP 2723, ACER 2022, Bundesbank 2024.")
+  );
+}
+ReactDOM.render(e(App),document.getElementById("root"));
+</script>
+</body>
+</html>
